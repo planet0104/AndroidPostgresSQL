@@ -9,3 +9,7 @@ linker = "D:/Android/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bi
 [target.aarch64-linux-android]
 ar = "D:/Android/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ar.exe"
 linker = "D:/Android/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bin/aarch64-linux-android24-clang.cmd"
+
+[target.i686-linux-android]
+ar = "D:/Android/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bin/llvm-ar.exe"
+linker = "D:/Android/ndk/25.2.9519653/toolchains/llvm/prebuilt/windows-x86_64/bin/i686-linux-android24-clang.cmd"

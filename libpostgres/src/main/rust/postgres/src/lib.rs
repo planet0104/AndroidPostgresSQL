@@ -1,4 +1,4 @@
-use std::ffi::{CStr, CString};
+use std::ffi::{CStr, CString, c_char};
 
 use anyhow::Result;
 use log::{LevelFilter, info};
@@ -9,7 +9,7 @@ mod pq_utils;
 ///
 /// cargo build --lib --release --target armv7-linux-androideabi
 
-pub type QueryCallback = extern fn(*const u8, bool);
+pub type QueryCallback = extern fn(*const c_char, bool);
 
 #[no_mangle]
 pub extern fn init_log(){
@@ -17,7 +17,7 @@ pub extern fn init_log(){
 }
 
 #[no_mangle]
-pub extern fn query(host:*const u8, port:u16, user:*const u8, password:*const u8, dbname:*const u8, sql: *const u8, callback: QueryCallback){
+pub extern fn query(host:*const c_char, port:u16, user:*const c_char, password:*const c_char, dbname:*const c_char, sql: *const c_char, callback: QueryCallback){
     
     match query_sync(host, port, user, password, dbname, sql){
         Ok(json) => {
@@ -31,7 +31,7 @@ pub extern fn query(host:*const u8, port:u16, user:*const u8, password:*const u8
     }
 }
 
-fn query_sync(host:*const u8, port:u16, user:*const u8, password:*const u8, dbname:*const u8, sql: *const u8) -> Result<String>{
+fn query_sync(host:*const c_char, port:u16, user:*const c_char, password:*const c_char, dbname:*const c_char, sql: *const c_char) -> Result<String>{
     let sql = unsafe{ CStr::from_ptr(sql) }.to_str()?;
     let host = unsafe{ CStr::from_ptr(host) }.to_str()?;
     let user = unsafe{ CStr::from_ptr(user) }.to_str()?;
